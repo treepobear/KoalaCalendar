@@ -1,0 +1,37 @@
+.content-box{
+    position: absolute;
+    left:150px;
+    right: 0;
+    top:70px;
+    bottom:0;
+    overflow-y: scroll;
+    -webkit-transition: left .3s ease-in-out;
+    transition: left .3s ease-in-out;
+    background: #ededed;
+}
+html,body{
+    margin:0;
+    padding:0;
+    background-color: whitesmoke;
+}
+.content-collapse{
+    left:65px;
+}
+.table{
+    min-width: 800px;
+}
+.container{
+    padding:20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.canvas-wrapper{
+    position:absolute;
+    width: 1000px;
+    height: 650px;
+    border: solid 0.5px grey;
+}
+.router-container{
+    padding:15px;
+}
