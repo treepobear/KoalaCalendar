@@ -22,5 +22,6 @@ public interface UserMapper {
     public List<User> allUser();
     ///根据名字模糊查询
     public List<User> userOfName(String name);
-
+    //登录验证
+    public int verifyPassword(String name, String password);
 }

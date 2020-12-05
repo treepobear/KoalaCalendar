@@ -27,12 +27,11 @@ public class AdminController {
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登录成功");
             session.setAttribute(Consts.NAME,name);
-            return jsonObject;
         }else{
             jsonObject.put(Consts.CODE,0);
             jsonObject.put(Consts.MSG,"用户名或密码错误");
-            return jsonObject;
         }
+        return jsonObject;
 
     }
 }

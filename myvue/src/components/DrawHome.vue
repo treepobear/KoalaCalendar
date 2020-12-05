@@ -1,8 +1,8 @@
 <template>
     <div>
-       <DrawHeader></DrawHeader>
+       <DrawHeader v-bind:title="headerTitle"></DrawHeader>
        <div class="router-container">
-       <router-view></router-view>
+       <router-view @getTitle="setTitle"></router-view>
        </div>
     </div>
 </template>
@@ -12,6 +12,16 @@ import DrawHeader from "./DrawHeader"
 export default {
     components:{
         DrawHeader
+    },
+    data(){
+        return{
+            headerTitle:""
+        }
+    },
+    methods:{
+        setTitle(val){
+            this.headerTitle = val;
+        }
     }
 }
 </script>

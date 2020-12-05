@@ -19,4 +19,6 @@ public interface UserService {
     public List<User> allUser();
     ///根据名字模糊查询
     public List<User> userOfName(String name);
+    // 登录
+    public boolean verifyLogin(String name, String password);
 }

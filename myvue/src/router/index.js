@@ -16,7 +16,7 @@ export default new Router({
       component:resolve =>require(['../components/DrawHome.vue'],resolve),
       children:[
         {
-          path:"/",
+          path:"",
           component:resolve =>require(['../pages/HelloWorld.vue'],resolve)
         },
         {

@@ -28,7 +28,7 @@
   </el-tooltip><br><br>
 
   <el-tooltip content="清空画板" placement="left">
-  <el-button type="danger" icon="el-icon-delete" circle/>
+  <el-button type="danger" icon="el-icon-delete" @click="clearCanvas" circle/>
   </el-tooltip>
 </el-row>
 
@@ -101,10 +101,23 @@ export default {
     modifyDiagram(){
       this.jsonEditVisable = false;
       myDiagram.model = go.Model.fromJson(this.chartJSON);
-    }
+    },
+    clearCanvas(){
+      this.$confirm('此操作将清空正在编辑的内容, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            load();
+        }).catch(() => {
+      
+        });
+      }
   },
 
     mounted(){
+      this.$emit('getTitle', "新建流程图");
+
         myDiagram =
         $(go.Diagram, "myDiagramDiv",  // must name or refer to the DIV HTML element
           {

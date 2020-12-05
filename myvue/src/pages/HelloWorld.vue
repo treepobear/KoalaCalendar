@@ -130,7 +130,10 @@
 <script>
 import bus from "../assets/js/bus"
 import '../assets/css/frontpage.css'
+import {setUser,userLoginStatus} from "../api/index"
+import {utils} from "../utils/index"
 export default{
+  mixins:[utils],
   data(){
     return {
       ruleForm:{
@@ -171,12 +174,59 @@ export default{
   },
   methods:{
     userLogin(){
+      var params = {
+            name:this.ruleForm.username,
+            password:this.ruleForm.password
+        }
+
+          userLoginStatus(params)
+            .then((res)=>{
+                if(res.code == 1){
+                    localStorage.setItem('userName',this.ruleForm.username);
+                    this.notify("登录成功","success");
+                    this.$store.commit('setLoginIn',true);
+                    this.$store.commit('setUserId',res.userMsg.id);
+                    this.$store.commit('setUserName',res.userMsg.name);
+                    this.$store.commit('setUserAvator',res.userMsg.pic);
+                    this.loginVisable = fasle;
+                }else{
+                    this.notify("用户名或密码错误","error");
+                }
+            })
 
     },
     userRegister(){
-      // this.loginVisable = false;
       this.registerVisable = true;
+    },
+    addUser(){
+      let d = this.registerForm.birth;
+      let datetime = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+      let params = {
+          id:this.registerForm.id,
+          name:this.registerForm.name,
+          sex:this.registerForm.sex,
+          birth:datetime,
+          location:this.registerForm.location,
+          introduction:this.registerForm.introduction,
+          pic:'img/avatar/default_avatar.jpg',
+          password:this.registerForm.password
+      };
+      setUser(params)
+            .then((res)=>{
+                if(res.code == 1){
+                    this.notify("添加成功","success");
+                }else{
+                    this.notify("添加失败","error");
+                }
+            })
+      this.ruleForm.username = this.registerForm.id;
+      this.registerVisable = false;
+    
     }
+  },
+  mounted(){
+    this.$emit('getTitle', "快来玩鸭");
+
   }
 }
 </script>

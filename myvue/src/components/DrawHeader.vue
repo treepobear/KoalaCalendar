@@ -4,15 +4,13 @@
         <div class="collapse-btn" @click="jumpHelloWorld">
             <i class="el-icon-menu"/>
         </div>
-        <div class="logo">快来玩鸭</div>
-
-
+        <div class="logo">{{title}}</div>
 
  <div class="headerr-right">
 
 
     <el-dropdown class="headerr-mid">
-    <span class="el-dropdown-link">
+    <span class="el-dropdown-linkk">
         新建<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
@@ -24,7 +22,7 @@
     </el-dropdown>    
 
 
-<el-input placeholder="搜索" v-model="searchinput" :disabled="true" style="margin-right:80px;">
+<el-input placeholder="搜索" v-model="searchinput" :disabled="true" style="margin-right:50px;">
         </el-input>
 
             <div class="btn-fullscreen" @click='handleFullScreen'>
@@ -33,7 +31,7 @@
                 </el-tooltip>
             </div>
             <div class='user-avator'>
-                <img src='../assets/img/default_avatar.png'/>
+                <img :src='getUrl(userAvator)'/>
             </div>
             <el-dropdown class="user-name">
                 <span class='el-dropdown-link'>
@@ -41,9 +39,10 @@
                     <i class="el-icon-caret-bottom"/>
                 </span>
                 <el-dropdown-menu slot='dropdown'>
-                    <el-dropdown-item @click.native="userLogin">用户登录</el-dropdown-item>
+                    <el-dropdown-item v-show="!loginIn &&  this.$route.path=='/'" @click.native="userLogin">用户登录</el-dropdown-item>
                     <el-dropdown-item @click.native="jumpMyFile">我的文件</el-dropdown-item>
-                    <el-dropdown-item @click.native="userLogout">退出登录</el-dropdown-item>
+                    <el-dropdown-item v-show="!loginIn" @click.native="jumpUserInfo">编辑信息</el-dropdown-item>
+                    <el-dropdown-item v-show="loginIn &&  this.$route.path=='/'" @click.native="userLogout">退出登录</el-dropdown-item>
                     <el-dropdown-item @click.native="jumpAdminLogin">后台入口</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -54,18 +53,34 @@
 <script>
 import bus from "../assets/js/bus"
 import {utils} from "../utils/index"
+import {mapGetters} from 'vuex';
 export default {
     mixins:[utils],
+    props: ['title','editable'],
     data(){
         return{
-            fullscreen:false
+            fullscreen:false,
+            titleInput:""
         }
     },
+    computed:{
+        ...mapGetters([
+            'loginIn',
+            'userName',
+            'userAvator',
+        ])
+    },
+
     methods:{
         userLogin(){
             bus.$emit('login');
         },
         userLogout(){
+            this.$store.commit('setLoginIn',false);
+            this.$store.commit('setUserId',"未登录");
+            this.$store.commit('setUserName',"");
+            this.$store.commit('setUserAvator',"img/avatar/default_avatar.jpg");
+            this.notify("已退出登录","success");
 
         },
         jumpAdminLogin(){
@@ -80,7 +95,7 @@ export default {
         },
         jumpflowchart(){this.$router.push('/flowchart');},
         jumpmarkdown(){this.$router.push('/markdown');},
-        
+        jumpUserInfo(){}
     }
     
 }
@@ -115,7 +130,6 @@ export default {
     line-height:70px;
 }.headerr .headerr-right{
     float:right;
-    padding-right:50px;
     display: flex;
     height:70px;
     align-items: center;
@@ -135,9 +149,9 @@ export default {
 }
 .user-name{
     margin-left:10px;
-
+    width:250px;
 }
-.el-dropdown-link{
+.el-dropdown-linkk{
     color:black;
     cursor:pointer;
     width:50px;

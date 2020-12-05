@@ -103,7 +103,6 @@ export default {
 }
 .user-name{
     margin-left:10px;
-
 }
 .el-dropdown-link{
     color:white;

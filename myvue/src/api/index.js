@@ -12,3 +12,5 @@ export const getAllUser = () =>get('/user/allUser');
 export const modifyUser = (params)=>post('user/update',params);
 //删除用户
 export const handleDelete = (param) => get(`/user/delete?param=${param}`);
+//用户登录
+export const userLoginStatus = (params) => post('/user/userLogin/status',params);

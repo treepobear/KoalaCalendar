@@ -123,4 +123,8 @@
         where name like #{name}
     </select>
 
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*) from user where id=#{name} and password=#{password}
+    </select>
+
 </mapper>

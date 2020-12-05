@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public List<User> userOfName(String name) {
         return userMapper.userOfName(name);
     }
+
+    @Override
+    public boolean verifyLogin(String name, String password) {
+        return userMapper.verifyPassword(name,password)>0; //查到数据说明对 查不到说明密码错
+    }
 }
