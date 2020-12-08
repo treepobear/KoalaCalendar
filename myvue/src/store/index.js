@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state:{
-        HOST:'http://127.0.0.1:8888',
+        HOST:'http://localhost:8888',
         loginIn: false,   //用户是否已经登录
         userId:'',
         userName:'',

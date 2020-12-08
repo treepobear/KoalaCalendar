@@ -69,4 +69,3 @@ export function post(url,data){
     });
 }
 
-//在get中参数用&符号一个个连接起来，在post中是用表单提交参数。只有这一点区别。
