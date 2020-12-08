@@ -5,12 +5,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state:{
-        HOST:'http://127.0.0.1:8888',
+        HOST:'http://localhost:8888',
         loginIn: false,   //用户是否已经登录
         userId:'',
-        userName:'未登录',
-        userAvator:'img/avatar/default_avatar.jpg',
-
+        userName:'',
+        userAvator:'',
+        editJson:'',
+        isnew:true,
+        editFileName:'',
+        editId:''
     },
     getters:{
         loginIn:state =>{
@@ -20,12 +23,40 @@ const store = new Vuex.Store({
             }
             return loginIn
         },
+        editId:state =>{
+            let editId = state.editId
+            if(!editId){
+                editId = JSON.parse(window.sessionStorage.getItem('editId'))
+            }
+            return editId
+        },
+        editFileName:state =>{
+            let editFileName = state.editFileName
+            if(!editFileName){
+                editFileName = JSON.parse(window.sessionStorage.getItem('editFileName'))
+            }
+            return editFileName
+        },
+        isnew:state =>{
+            let isnew = state.isnew
+            if(!isnew){
+                isnew = JSON.parse(window.sessionStorage.getItem('isnew'))
+            }
+            return isnew
+        },
+        editJson:state =>{
+            let editJson = state.editJson
+            if(!editJson){
+                editJson = JSON.parse(window.sessionStorage.getItem('editJson'))
+            }
+            return editJson
+        },
         userId:state =>{
             let userId = state.userId
             if(!userId){
                 userId = JSON.parse(window.sessionStorage.getItem('userId'))
             }
-            return loginIn
+            return userId
         },
         userName:state =>{
             let userName = state.userName
@@ -45,6 +76,14 @@ const store = new Vuex.Store({
 
     },
     mutations:{
+        setEditJson: (state,editJson) =>{
+            state.editJson = editJson
+            window.sessionStorage.setItem('editJson',JSON.stringify(editJson))
+        },
+        setIsNew: (state,isnew) =>{
+            state.isnew = isnew
+            window.sessionStorage.setItem('isnew',JSON.stringify(isnew))
+        },
         setLoginIn: (state,loginIn) =>{
             state.loginIn = loginIn
             window.sessionStorage.setItem('loginIn',JSON.stringify(loginIn))
@@ -60,6 +99,14 @@ const store = new Vuex.Store({
         setUserAvator: (state,userAvator) =>{
             state.userAvator = userAvator
             window.sessionStorage.setItem('userAvator',JSON.stringify(userAvator))
+        },
+        setEditFileName: (state,editFileName) =>{
+            state.editFileName = editFileName
+            window.sessionStorage.setItem('editFileName',JSON.stringify(editFileName))
+        },
+        setEditId: (state,editId) =>{
+            state.editId = editId
+            window.sessionStorage.setItem('editId',JSON.stringify(editId))
         },
     }
 })

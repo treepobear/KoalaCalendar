@@ -37,11 +37,6 @@ export default {
                     icon:'el-icon-document',
                     index:'consumers',
                     title:'用户管理'
-                },
-                {
-                    icon:'el-icon-document',
-                    index:'notelist',
-                    title:'博客管理'
                 }
             ]
         }

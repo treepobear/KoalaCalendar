@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.treepobear.demo.dao.DiagramMapper">
+    <resultMap id="BaseResultMap" type="com.treepobear.demo.domin.Diagram">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="cover" jdbcType="VARCHAR" property="cover"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="author_id" jdbcType="VARCHAR" property="author_id"/>
+        <result column="json_string" jdbcType="VARCHAR" property="json_string"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,type,filename,cover,create_time,author_id,json_string
+    </sql>
+
+    <insert id="insert" parameterType="com.treepobear.demo.domin.Diagram">
+        insert into diagram
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="filename != null">
+                filename,
+            </if>
+            <if test="cover != null">
+                cover,
+            </if>
+            <if test="create_time != null">
+                create_time,
+            </if>
+            <if test="author_id != null">
+                author_id,
+            </if>
+            <if test="json_string != null">
+                json_string,
+            </if>
+        </trim>
+
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="filename != null">
+                #{filename},
+            </if>
+            <if test="cover != null">
+                #{cover},
+            </if>
+            <if test="create_time != null">
+                #{create_time},
+            </if>
+            <if test="author_id != null">
+                #{author_id},
+            </if>
+            <if test="json_string != null">
+                #{json_string},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="Base_Column_List"/>
+        from diagram
+        where author_id = #{id}
+    </select>
+
+    <update id="modifyById" parameterType="com.treepobear.demo.domin.Diagram">
+        update diagram
+        <set>
+            <if test="json_string != null">
+                json_string=#{json_string},
+            </if>
+            <if test="create_time != null">
+                create_time=#{create_time},
+            </if>
+            <if test="filename != null">
+                filename=#{filename},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

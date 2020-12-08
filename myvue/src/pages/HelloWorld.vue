@@ -188,7 +188,7 @@ export default{
                     this.$store.commit('setUserId',res.userMsg.id);
                     this.$store.commit('setUserName',res.userMsg.name);
                     this.$store.commit('setUserAvator',res.userMsg.pic);
-                    this.loginVisable = fasle;
+                    this.loginVisable = false;
                 }else{
                     this.notify("用户名或密码错误","error");
                 }
@@ -214,9 +214,9 @@ export default{
       setUser(params)
             .then((res)=>{
                 if(res.code == 1){
-                    this.notify("添加成功","success");
+                    this.notify("注册成功","success");
                 }else{
-                    this.notify("添加失败","error");
+                    this.notify("注册失败","error");
                 }
             })
       this.ruleForm.username = this.registerForm.id;
