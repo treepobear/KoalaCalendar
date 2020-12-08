@@ -80,12 +80,11 @@ public class UserController {
         if(flag){
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"添加成功");
-            return jsonObject;
         }else {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "添加失败");
-            return jsonObject;
         }
+        return jsonObject;
     }
 
     /**

@@ -22,7 +22,7 @@
     </el-dropdown>    
 
 
-<el-input placeholder="搜索" v-model="searchinput" :disabled="true" style="margin-right:50px;">
+<el-input placeholder="搜索" :disabled="true" style="margin-right:50px;">
         </el-input>
 
             <div class="btn-fullscreen" @click='handleFullScreen'>
@@ -40,8 +40,8 @@
                 </span>
                 <el-dropdown-menu slot='dropdown'>
                     <el-dropdown-item v-show="!loginIn &&  this.$route.path=='/'" @click.native="userLogin">用户登录</el-dropdown-item>
-                    <el-dropdown-item @click.native="jumpMyFile">我的文件</el-dropdown-item>
-                    <el-dropdown-item v-show="!loginIn" @click.native="jumpUserInfo">编辑信息</el-dropdown-item>
+                    <el-dropdown-item @click.native="jumpMyFile" v-show="loginIn">我的文件</el-dropdown-item>
+                    <el-dropdown-item v-show="loginIn" @click.native="jumpUserInfo">编辑信息</el-dropdown-item>
                     <el-dropdown-item v-show="loginIn &&  this.$route.path=='/'" @click.native="userLogout">退出登录</el-dropdown-item>
                     <el-dropdown-item @click.native="jumpAdminLogin">后台入口</el-dropdown-item>
                 </el-dropdown-menu>
@@ -68,6 +68,7 @@ export default {
             'loginIn',
             'userName',
             'userAvator',
+            'isnew',
         ])
     },
 
@@ -77,11 +78,10 @@ export default {
         },
         userLogout(){
             this.$store.commit('setLoginIn',false);
-            this.$store.commit('setUserId',"未登录");
-            this.$store.commit('setUserName',"");
+            this.$store.commit('setUserId',"");
+            this.$store.commit('setUserName',"未登录");
             this.$store.commit('setUserAvator',"img/avatar/default_avatar.jpg");
-            this.notify("已退出登录","success");
-
+            location.reload();
         },
         jumpAdminLogin(){
             this.$router.push("/login");
@@ -93,7 +93,17 @@ export default {
         jumpHelloWorld(){
             this.$router.push('/');
         },
-        jumpflowchart(){this.$router.push('/flowchart');},
+        jumpflowchart(){
+            if(!this.isnew){
+                this.$store.commit('setIsNew',true);
+                location.reload();
+                this.$router.go(0);
+
+            }else{
+                this.$router.push('/flowchart');
+            }
+            
+        },
         jumpmarkdown(){this.$router.push('/markdown');},
         jumpUserInfo(){}
     }

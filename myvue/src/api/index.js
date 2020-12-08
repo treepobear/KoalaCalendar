@@ -14,3 +14,9 @@ export const modifyUser = (params)=>post('user/update',params);
 export const handleDelete = (param) => get(`/user/delete?param=${param}`);
 //用户登录
 export const userLoginStatus = (params) => post('/user/userLogin/status',params);
+//添加图表
+export const addDiagram = (params) =>post('/diagram/addDiagram',params);
+//根据用户获取图表
+export const getPersonalFile = (id) => get(`/diagram/getDiagramById?param=${id}`);
+//修改图表
+export const modifyDiagramById = (params)=>post('/diagram/modifyDiagram',params);

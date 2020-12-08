@@ -40,10 +40,6 @@ export default new Router({
         {
           path:'consumers',
           component:resolve =>require(['../pages/Consumers.vue'],resolve)
-        },
-        {
-          path:'notelist',
-          component:resolve =>require(['../pages/NoteList.vue'],resolve)
         }
       ],
     },
